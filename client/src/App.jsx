@@ -17,11 +17,8 @@ import NotFound from "./pages/not-found";
 import CheckAuth from "./components/common/check-auth";
 import Unauth from "./pages/unauth-page";
 const App = () => {
-  const isAuthenticated = true;
-  const user =  {
-    name : "John Doe",
-    role : "user"
-  };
+  const isAuthenticated = false;
+  const user =  null;
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* <h1>Header Component</h1> */}
