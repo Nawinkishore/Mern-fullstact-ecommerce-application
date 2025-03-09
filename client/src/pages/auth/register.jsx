@@ -2,6 +2,9 @@ import CommonForm from "@/components/common/form";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {registerFormControls} from '../../config/index'
+import { registerUser } from "../../../store/auth-slice/index";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const initialState = {
   name: "",
   email: "",
@@ -9,7 +12,14 @@ const initialState = {
 };
 const register = () => {
   const [formData, setFormData] = useState(initialState);
-  function onSubmit(){};
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function onSubmit(e){
+    e.preventDefault();
+    dispatch(registerUser(formData)).then(()=>navigate('/auth/login'));
+    
+  };
+  console.log(formData);
   return (
     <div className="mx-auto w-full max-w-md space-y-6">
       <div className="text-center">
