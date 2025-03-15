@@ -16,9 +16,10 @@ import ShoppingAccount from "./pages/shopping-view/account";
 import NotFound from "./pages/not-found";
 import CheckAuth from "./components/common/check-auth";
 import Unauth from "./pages/unauth-page";
+import { useSelector } from "react-redux";
 const App = () => {
-  const isAuthenticated = false;
-  const user =  null;
+  
+  const {isAuthenticated ,user} = useSelector((state) => state.auth);
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* <h1>Header Component</h1> */}
