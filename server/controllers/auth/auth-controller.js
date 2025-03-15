@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 
 // Register
 export const register = async (req, res) => {
+    console.log("Incoming Data:", req.body);
     const { userName, email, password } = req.body;
 
     try {
@@ -12,7 +13,7 @@ export const register = async (req, res) => {
         if (!email){return res.status(400).json({ success : false, message: "Email is required" })};
         if (!password){return res.status(400).json({ success : false, message: "Password is required" })};
         if(userName){
-            const userNameExists = await User.findOne({ userName });
+            const userNameExists = await User.findOne({userName});
             if (userNameExists) {
                 return res.status(400).json({ success : false, message: "User Name already exists" });
             }
