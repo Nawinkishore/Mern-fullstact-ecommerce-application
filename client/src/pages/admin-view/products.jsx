@@ -20,6 +20,8 @@ const products = () => {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);
   const [formData, setFormData] = useState(initialFormData);
+  const [imageFile,setImageFile] = useState(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
   function onSumbit(){
 
   }
@@ -39,10 +41,16 @@ const products = () => {
           <SheetHeader>
             <SheetTitle>Add New Product</SheetTitle>
           </SheetHeader>
-          <ProductImageUpload />
+          <ProductImageUpload 
+          file={imageFile}
+          setFile={setImageFile}
+          uploadedImageUrl={uploadedImageUrl}
+          setUploadedImageUrl={setUploadedImageUrl}
+          />
           <div className="py-6 px-3">
             <CommonForm
             formControls={addProductFormElements}
+            setFormData={setFormData}
             formData={formData}
             buttonText='Add Product'
             onSubmit={onSumbit}
