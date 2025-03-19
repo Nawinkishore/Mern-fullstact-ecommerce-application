@@ -11,6 +11,7 @@ function ProductImageUpload({
   setImageFile,
   uploadedImageUrl,
   setUploadedImageUrl,
+  setImageLoadingState,
 }) {
   const inputRef = useRef(null);
   function handleImageFileChange(event) {
@@ -37,6 +38,7 @@ function ProductImageUpload({
     }
   }
   async function uploadImagetoCloudinary() {
+    setImageLoadingState(true);
     try {
       const data = new FormData();
       data.append("my_file", imageFile);
@@ -53,8 +55,8 @@ function ProductImageUpload({
   
       console.log(response);
       if (response.data && response.data.success) {
-        setUploadedImageUrl(response.data.url); // Assuming the response contains the uploaded image URL
-      } else {
+        setUploadedImageUrl(response.data.url); 
+        setImageLoadingState(false);
         console.error("Upload failed:", response.data.message);
       }
     } catch (error) {
