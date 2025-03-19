@@ -25,5 +25,28 @@ const handleImageUpload = async (req, res) => {
         });
     }
 };
+// add a product
+
+
+
+
+
+// fetch all the products
+
+
+
+
+
+// edit a products
+
+
+
+
+
+
+
+// delete a product
+
+
 
 export { handleImageUpload };
