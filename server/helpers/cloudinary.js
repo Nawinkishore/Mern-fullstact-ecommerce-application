@@ -1,10 +1,11 @@
-import cloudinary from 'cloudinary';
+import { v2 as cloudinary} from 'cloudinary';
+// import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
 
 cloudinary.config({
-    cloud_name : 'dakiluddl',
-    api_key : '279921496553248',
-    api_secret : 'k_R76opxhucd4A1E5AIJho0NZOo'
+    cloud_name : process.env.CLOUD_NAME,
+    api_key : process.env.CLOUD_API_KEY,
+    api_secret : process.env.CLOUD_API_SECRET
 });
 
 const storage = new multer.memoryStorage();
