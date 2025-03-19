@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import authRouter from './routes/auth/auth-routes.js';
-
+import adminRouter from './routes/admin/products-route.js';
 // Create a database connection
 mongoose.connect('mongodb+srv://nawinthedeveloper:nawinthedeveloper@cluster0.pb2rk.mongodb.net/')
     .then(() => console.log('Database connected')).catch(err => console.log(err));
@@ -31,3 +31,4 @@ app.use(cookieParser());
 app.use(express.json());
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 app.use('/api/auth', authRouter);
+app.use('/api/admin', adminRouter);
