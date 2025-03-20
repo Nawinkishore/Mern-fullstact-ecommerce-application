@@ -1,7 +1,7 @@
 import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 // Register
 export const register = async (req, res) => {
@@ -115,32 +115,31 @@ export const login = async (req, res) => {
 // logout
 
 export const logout = async (req, res) => {
-    res.clearCookie("token").json({
-        success: true,
-        message: "User logged out successfully",
-    });
-}
-
+  res.clearCookie("token").json({
+    success: true,
+    message: "User logged out successfully",
+  });
+};
 
 // auth Middleware
 
 export const authMiddleware = async (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-        return res.status(401).json({
-            success: false,
-            message: "Unauthorized",
-        });
-    }
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SCERET);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        console.log(error);
-        res.status(401).json({
-            success: false,
-            message: "Unauthorized",
-        });
-    }
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized",
+    });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SCERET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({
+      success: false,
+      message: "Unauthorized",
+    });
+  }
 };
