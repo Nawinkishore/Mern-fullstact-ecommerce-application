@@ -81,5 +81,32 @@ const fetchAllProducts = async (req, res) => {
   }
 };
 
-// Export all functions as named exports
+// Delete product by id
+const deleteProductById = async(req,res)=>{
+  const {id} = req.params;
+  try{
+      const product = await Product.findById({_id:id});
+      if(!product){
+        return res.status(404).json({
+          success:false,
+          message:"Product not found"
+        })
+      }
+      await Product.findByIdAndDelete({_id:id});
+      res.status(200).json({
+        success:true,
+        message:"Product deleted successfully"
+      });
+
+  }
+  catch(e)
+  {
+    res.status.json({
+      success:false,
+      message:"Something went wrong",
+      error:e.message
+    })
+  }
+}
+
 export { handleImageUpload, addProducts, fetchAllProducts };
