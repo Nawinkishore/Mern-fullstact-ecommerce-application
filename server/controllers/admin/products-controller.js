@@ -186,4 +186,10 @@ const deleteProductById = async (req, res) => {
   }
 };
 
-export { handleImageUpload, addProducts, fetchAllProducts , updateProductById, deleteProductById };
+export {
+  handleImageUpload,
+  addProducts,
+  fetchAllProducts,
+  updateProductById,
+  deleteProductById,
+};
