@@ -30,9 +30,27 @@ const handleImageUpload = async (req, res) => {
 
 // Add a product
 const addProducts = async (req, res) => {
-  const { image, title, description, category, brand, price, salePrice, totalStock } = req.body;
+  const {
+    image,
+    title,
+    description,
+    category,
+    brand,
+    price,
+    salePrice,
+    totalStock,
+  } = req.body;
   try {
-    if (!image || !title || !description || !category || !brand || !price || !salePrice || !totalStock) {
+    if (
+      !image ||
+      !title ||
+      !description ||
+      !category ||
+      !brand ||
+      !price ||
+      !salePrice ||
+      !totalStock
+    ) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
@@ -81,32 +99,72 @@ const fetchAllProducts = async (req, res) => {
   }
 };
 
-// Delete product by id
-const deleteProductById = async(req,res)=>{
-  const {id} = req.params;
-  try{
-      const product = await Product.findById({_id:id});
-      if(!product){
-        return res.status(404).json({
-          success:false,
-          message:"Product not found"
-        })
-      }
-      await Product.findByIdAndDelete({_id:id});
-      res.status(200).json({
-        success:true,
-        message:"Product deleted successfully"
+// Update product by id
+const updateProductById = async (req, res) => {
+  const { id } = req.params;
+  const {
+    image,
+    title,
+    description,
+    category,
+    brand,
+    price,
+    salePrice,
+    totalStock,
+  } = req.body;
+  try {
+    const product = await Product.findById({ _id: id });
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
       });
+    }
+    Product.image = image ?? product.image;
+    Product.title = title ?? product.title;
+    Product.description = description ?? product.description;
+    Product.category = category ?? product.category;
+    Product.brand = brand ?? product.brand;
+    Product.price = price ?? product.price;
+    Product.salePrice = salePrice ?? product.salePrice;
+    Product.totalStock = totalStock ?? product.totalStock;
+    await Product.save();
+    res.status(200).json({
+      success: true,
+      message: "Product updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
 
-  }
-  catch(e)
-  {
+// Delete product by id
+const deleteProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById({ _id: id });
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+    await Product.findByIdAndDelete({ _id: id });
+    res.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (e) {
     res.status.json({
-      success:false,
-      message:"Something went wrong",
-      error:e.message
-    })
+      success: false,
+      message: "Something went wrong",
+      error: e.message,
+    });
   }
-}
+};
 
 export { handleImageUpload, addProducts, fetchAllProducts };
