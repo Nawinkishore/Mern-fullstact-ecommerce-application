@@ -186,6 +186,8 @@ const deleteProductById = async (req, res) => {
   }
 };
 
+
+
 export {
   handleImageUpload,
   addProducts,
