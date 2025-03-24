@@ -170,6 +170,7 @@ const deleteProductById = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Product not found",
+        
       });
     }
     await Product.findByIdAndDelete({ _id: id });
