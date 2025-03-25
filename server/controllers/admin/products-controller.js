@@ -114,26 +114,8 @@ const updateProductById = async (req, res) => {
   // } = req.body;
   const updateFields = req.body;
   try {
-    // const product = await Product.findById({ _id: id });
-    // if (!product) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: "Product not found",
-    //   });
-    // }
-    // Product.image = image ?? product.image;
-    // Product.title = title ?? product.title;
-    // Product.description = description ?? product.description;
-    // Product.category = category ?? product.category;
-    // Product.brand = brand ?? product.brand;
-    // Product.price = price ?? product.price;
-    // Product.salePrice = salePrice ?? product.salePrice;
-    // Product.totalStock = totalStock ?? product.totalStock;
-    // await Product.save();
-    // res.status(200).json({
-    //   success: true,
-    //   message: "Product updated successfully",
-    // });
+   
+   
     const product = await Product.findByIdAndUpdate(
       id,
       {
