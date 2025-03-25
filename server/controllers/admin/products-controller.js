@@ -114,8 +114,7 @@ const updateProductById = async (req, res) => {
   // } = req.body;
   const updateFields = req.body;
   try {
-   
-   
+    
     const product = await Product.findByIdAndUpdate(
       id,
       {
