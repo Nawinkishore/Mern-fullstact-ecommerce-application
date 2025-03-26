@@ -8,6 +8,7 @@ import { useState } from "react";
 import ProductImageUpload from "../admin-view/image-upload";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
+import AdminProductTile from "./product-tile";
 import {
   fetchAllProducts,
   addNewProduct,
@@ -62,7 +63,14 @@ const products = () => {
           Add New Products
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4"></div>
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+
+        {
+        productList && productList.length > 0?
+        productList.map((product) => (
+          <AdminProductTile key={product._id} product={product} />
+        )):null}
+      </div>
       <Sheet
         open={openCreateProductsDialog}
         onOpenChange={() => setOpenCreateProductsDialog(false)}
