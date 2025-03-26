@@ -5,59 +5,57 @@ import { Sheet } from "@/components/ui/sheet";
 import { addProductFormElements } from "@/config";
 import React from "react";
 import { useState } from "react";
-import ProductImageUpload from '../admin-view/image-upload'
+import ProductImageUpload from "../admin-view/image-upload";
 const initialFormData = {
-  image : null,
-  title :'',
-  decription:'',
-  category : '',
-  brand : '',
-  price :'',
-  salePrice : '',
-  totalStock : '',
-}
+  image: null,
+  title: "",
+  decription: "",
+  category: "",
+  brand: "",
+  price: "",
+  salePrice: "",
+  totalStock: "",
+};
 const products = () => {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);
   const [formData, setFormData] = useState(initialFormData);
-  const [imageFile,setImageFile] = useState(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
-  const [imageLoadingState , setImageLoadingState] = useState(false);
-  
-  function onSumbit(){
+  const [imageFile, setImageFile] = useState(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [imageLoadingState, setImageLoadingState] = useState(false);
 
-  }
+  function onSumbit() {}
   console.log(formData);
   return (
     <>
       <div className="mb-5 flex justify-end w-full">
-        <Button onClick={()=>setOpenCreateProductsDialog(true)}>Add New Products</Button>
+        <Button onClick={() => setOpenCreateProductsDialog(true)}>
+          Add New Products
+        </Button>
       </div>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4"></div>
-      <Sheet open={openCreateProductsDialog} onOpenChange={()=>
-        setOpenCreateProductsDialog(false)
-        
-      }
-      
+      <Sheet
+        open={openCreateProductsDialog}
+        onOpenChange={() => setOpenCreateProductsDialog(false)}
       >
-        <SheetContent side="right" className='overflow-auto p-3'>
+        <SheetContent side="right" className="overflow-auto p-3">
           <SheetHeader>
             <SheetTitle>Add New Product</SheetTitle>
           </SheetHeader>
-          <ProductImageUpload 
-          imageFile={imageFile}
-          setImageFile={setImageFile}
-          uploadedImageUrl={uploadedImageUrl}
-          setUploadedImageUrl={setUploadedImageUrl}
-          setImageLoadingState={setImageLoadingState}
+          <ProductImageUpload
+            imageFile={imageFile}
+            setImageFile={setImageFile}
+            uploadedImageUrl={uploadedImageUrl}
+            setUploadedImageUrl={setUploadedImageUrl}
+            setImageLoadingState={setImageLoadingState}
           />
           <div className="py-6 px-3">
             <CommonForm
-            formControls={addProductFormElements}
-            setFormData={setFormData}
-            formData={formData}
-            buttonText='Add Product'
-            onSubmit={onSumbit}
+              formControls={addProductFormElements}
+              setFormData={setFormData}
+              formData={formData}
+              buttonText="Add Product"
+              onSubmit={onSumbit}
             />
           </div>
         </SheetContent>

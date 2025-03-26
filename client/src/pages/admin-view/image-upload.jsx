@@ -42,7 +42,7 @@ function ProductImageUpload({
     try {
       const data = new FormData();
       data.append("my_file", imageFile);
-  
+
       const response = await axios.post(
         "http://localhost:5000/api/admin/product/upload-image",
         data, // Pass the FormData object directly
@@ -52,10 +52,10 @@ function ProductImageUpload({
           },
         }
       );
-  
+
       console.log(response);
       if (response.data && response.data.success) {
-        setUploadedImageUrl(response.data.url); 
+        setUploadedImageUrl(response.data.url);
         setImageLoadingState(false);
         console.error("Upload failed:", response.data.message);
       }
