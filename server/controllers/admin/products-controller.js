@@ -100,40 +100,10 @@ const fetchAllProducts = async (req, res) => {
 };
 
 // Update product by id
-const updateProductById = async (req, res) => {
+const editProduct = async (req, res) => {
   const { id } = req.params;
-  // const {
-  //   image,
-  //   title,
-  //   description,
-  //   category,
-  //   brand,
-  //   price,
-  //   salePrice,
-  //   totalStock,
-  // } = req.body;
   const updateFields = req.body;
   try {
-    // const product = await Product.findById({ _id: id });
-    // if (!product) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: "Product not found",
-    //   });
-    // }
-    // Product.image = image ?? product.image;
-    // Product.title = title ?? product.title;
-    // Product.description = description ?? product.description;
-    // Product.category = category ?? product.category;
-    // Product.brand = brand ?? product.brand;
-    // Product.price = price ?? product.price;
-    // Product.salePrice = salePrice ?? product.salePrice;
-    // Product.totalStock = totalStock ?? product.totalStock;
-    // await Product.save();
-    // res.status(200).json({
-    //   success: true,
-    //   message: "Product updated successfully",
-    // });
     const product = await Product.findByIdAndUpdate(
       id,
       {
@@ -170,7 +140,6 @@ const deleteProductById = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Product not found",
-        
       });
     }
     await Product.findByIdAndDelete({ _id: id });
@@ -187,12 +156,10 @@ const deleteProductById = async (req, res) => {
   }
 };
 
-
-
 export {
   handleImageUpload,
   addProducts,
   fetchAllProducts,
-  updateProductById,
+  editProduct,
   deleteProductById,
 };
