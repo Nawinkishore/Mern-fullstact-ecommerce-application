@@ -3,9 +3,15 @@ import { Button } from "@/components/ui/button";
 import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Sheet } from "@/components/ui/sheet";
 import { addProductFormElements } from "@/config";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import ProductImageUpload from "../admin-view/image-upload";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import {
+  fetchAllProducts,
+  addNewProduct,
+} from "../../../store/admin/product-slice/index";
 const initialFormData = {
   image: null,
   title: "",
@@ -16,6 +22,7 @@ const initialFormData = {
   salePrice: "",
   totalStock: "",
 };
+
 const products = () => {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);
@@ -23,9 +30,31 @@ const products = () => {
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
+  const { productList } = useSelector((state) => state.adminProducts);
+  const dispatch = useDispatch();
 
-  function onSumbit() {}
-  console.log(formData);
+  function onSumbit(e) {
+    e.preventDefault();
+    dispatch(
+      addNewProduct({
+        ...formData,
+        image: uploadedImageUrl,
+      })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+        setOpenCreateProductsDialog(false);
+        setImageFile(null);
+        setFormData(initialFormData);
+        toast.success("Product Added Successfully");
+      }
+    });
+  }
+  useEffect(() => {
+    dispatch(fetchAllProducts());
+  }, [dispatch]);
+
+  console.log(productList, uploadedImageUrl, "productList");
   return (
     <>
       <div className="mb-5 flex justify-end w-full">
@@ -48,6 +77,7 @@ const products = () => {
             uploadedImageUrl={uploadedImageUrl}
             setUploadedImageUrl={setUploadedImageUrl}
             setImageLoadingState={setImageLoadingState}
+            imageLoadingState={imageLoadingState}
           />
           <div className="py-6 px-3">
             <CommonForm

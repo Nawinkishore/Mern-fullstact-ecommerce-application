@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import axios from "axios";
 
 import { FileIcon, UploadCloudIcon, XIcon } from "lucide-react";
@@ -9,6 +10,7 @@ import { useEffect, useRef } from "react";
 function ProductImageUpload({
   imageFile,
   setImageFile,
+  imageLoadingState,
   uploadedImageUrl,
   setUploadedImageUrl,
   setImageLoadingState,
@@ -55,9 +57,9 @@ function ProductImageUpload({
 
       console.log(response);
       if (response.data && response.data.success) {
-        setUploadedImageUrl(response.data.url);
+        console.log("Upload successful:", response.data.result?.secure_url);
+        setUploadedImageUrl(response.data.result?.secure_url);
         setImageLoadingState(false);
-        console.error("Upload failed:", response.data.message);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -88,7 +90,10 @@ function ProductImageUpload({
             <UploadCloudIcon className="w-10 h-10 text-muted-foreground mb-2" />
             <span>Drag & Drop or click to upload Image</span>
           </Label>
-        ) : (
+        ) : 
+        imageLoadingState ? 
+        <Skeleton className='h-10 bg-gray-200' /> :
+        (
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <FileIcon className="w-8 h-8 text-primary mr-2 " />
