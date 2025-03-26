@@ -67,9 +67,10 @@ const addProducts = async (req, res) => {
       totalStock,
     });
     await product.save();
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "Product added successfully",
+      data : product
     });
   } catch (error) {
     console.error("Add Product Error:", error);
@@ -87,7 +88,7 @@ const fetchAllProducts = async (req, res) => {
     const products = await Product.find();
     res.status(200).json({
       success: true,
-      products,
+      data : products,
     });
   } catch (error) {
     console.error("Fetch Products Error:", error);
@@ -120,7 +121,7 @@ const editProduct = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Product updated successfully",
-      product,
+      data : product,
     });
   } catch (error) {
     res.status(500).json({
