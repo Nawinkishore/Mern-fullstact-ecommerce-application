@@ -23,9 +23,11 @@ const products = () => {
   const [imageFile,setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
   const [imageLoadingState , setImageLoadingState] = useState(false);
+  
   function onSumbit(){
 
   }
+  console.log(formData);
   return (
     <>
       <div className="mb-5 flex justify-end w-full">
