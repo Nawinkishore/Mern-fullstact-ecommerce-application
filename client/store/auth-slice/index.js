@@ -48,6 +48,24 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+export const logoutUser = createAsyncThunk(
+  "/auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/logout",
+        {}, 
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Logout Error:", error.response?.data);
+      return rejectWithValue(
+        error.response?.data || { message: "Something went wrong" }
+      );
+    }
+  }
+);
 export const checkAuth = createAsyncThunk("/auth/checkAuth", async () => {
   try {
     const response = await axios.get(
@@ -109,6 +127,11 @@ const authSlice = createSlice({
         state.user = !action.payload.success ? null : action.payload.user;
       })
       .addCase(checkAuth.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;

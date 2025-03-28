@@ -3,7 +3,7 @@ import { register ,login ,logout ,authMiddleware} from '../../controllers/auth/a
 const router = express.Router();
 router.post('/register',register);
 router.post('/login',login);
-router.get('/logout',logout);
+router.post('/logout',logout);
 router.get('/check-auth',authMiddleware,(req,res)=>{
     const user  = req.user;
     res.json({
