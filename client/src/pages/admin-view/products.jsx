@@ -12,11 +12,13 @@ import AdminProductTile from "./product-tile";
 import {
   fetchAllProducts,
   addNewProduct,
+  editProduct,
+  deleteProduct,
 } from "../../../store/admin/product-slice/index";
 const initialFormData = {
   image: null,
   title: "",
-  decription: "",
+  description: "",
   category: "",
   brand: "",
   price: "",
@@ -37,6 +39,21 @@ const products = () => {
 
   function onSumbit(e) {
     e.preventDefault();
+    currentEditedId !== null?
+    dispatch(editProduct
+      ({
+        id : currentEditedId,
+        formData
+      })).then((data) => {
+        console.log(data ,"Edit");
+        if (data?.payload?.success) {
+          dispatch(fetchAllProducts());
+          setOpenCreateProductsDialog(false);
+          setCurrentEditedId(null);
+          setFormData(initialFormData);
+          toast.success("Product Edited Successfully");
+        }
+      }):
     dispatch(
       addNewProduct({
         ...formData,
@@ -52,6 +69,22 @@ const products = () => {
       }
     });
   }
+  function handleDelete(id){
+    dispatch(deleteProduct(id)).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+        toast.success("Product Deleted Successfully");
+      }
+    });
+  }
+  function isFormValid() {
+    return Object.keys(formData).every((key) => {
+      if (key === "image") return true; // Skip validation for the image field
+      const value = formData[key];
+      return value !== null && value !== undefined && value !== ""; // Validate other fields
+    });
+  }
+
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
@@ -73,6 +106,7 @@ const products = () => {
                 setFormData={setFormData}
                 key={product._id}
                 product={product}
+                handleDelete={handleDelete}
               />
             ))
           : null}
@@ -111,6 +145,7 @@ const products = () => {
               formData={formData}
               buttonText={currentEditedId !== null ? "Edit" : "Add"}
               onSubmit={onSumbit}
+              isBtnDisabled={!isFormValid()}
             />
           </div>
         </SheetContent>

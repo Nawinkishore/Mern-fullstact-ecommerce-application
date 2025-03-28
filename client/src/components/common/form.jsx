@@ -68,7 +68,7 @@ function createElements(getControlItem, formData, setFormData) {
   return element;
 }
 
-const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText }) => {
+const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText ,isBtnDisabled}) => {
   return (
     <form onSubmit={onSubmit}>
       <div className='flex flex-col gap-3'>
@@ -80,7 +80,9 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
             }
           </div>
         ))}
-        <Button type='submit'
+        <Button
+        disabled={isBtnDisabled}
+        type='submit'
           className='mt-2 w-full'>{buttonText || 'Submit'}</Button>
       </div>
     </form>
