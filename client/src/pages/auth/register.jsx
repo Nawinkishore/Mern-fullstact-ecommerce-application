@@ -1,12 +1,12 @@
 import CommonForm from "@/components/common/form";
 import React, { useState } from "react";
-import { data, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {registerFormControls} from '../../config/index'
 import { registerUser } from "../../../store/auth-slice/index";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ToastProvider } from "@/components/ui/toast";
+
 ;
 const initialState = {
   userName: "",
