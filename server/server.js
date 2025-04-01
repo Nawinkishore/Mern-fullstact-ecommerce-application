@@ -4,7 +4,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import authRouter from "./routes/auth/auth-routes.js";
 import adminRouter from "./routes/admin/products-route.js";
+import shopProducts from "./routes/shop/product-routes.js"
 import dotenv from "dotenv";
+
 dotenv.config();
 // Create a database connection
 mongoose
@@ -37,3 +39,4 @@ app.use(express.json());
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminRouter);
+app.use("/api/shop/products", shopProducts);

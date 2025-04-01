@@ -11,16 +11,13 @@ import { sortOptions } from "@/config";
 import { ArrowUpDown } from "lucide-react";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchAllProducts } from "../../../store/admin/product-slice/index";
 
 const ShoppingListing = () => {
   const dispatch = useDispatch();
 
   // fetch list of products from the server
 
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, []);
+ 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6  p-4 md:p-6">
       <ProductFilter />
