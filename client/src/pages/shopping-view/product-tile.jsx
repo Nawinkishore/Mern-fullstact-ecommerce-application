@@ -3,14 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import React from "react";
 
-const shoppingProductTile = ({ product }) => {
+const ShoppingProductTile = ({ product }) => {
+  // console.log("Product:", product); // Debugging
   return (
-    <Card className="w-full max-w-sm mx-auto">
+    <Card  className="w-full max-w-sm mx-auto">
       <div>
         <div className="relative">
           <img
-            src={product?.image}
-            alt={product?.title}
+            src={product.image}
+            alt={product.title}
             className="w-full h-[300px] object-cover rounded-t-lg"
           />
           {product?.salePrice > 0 ? (
@@ -52,4 +53,4 @@ const shoppingProductTile = ({ product }) => {
   );
 };
 
-export default shoppingProductTile;
+export default ShoppingProductTile;

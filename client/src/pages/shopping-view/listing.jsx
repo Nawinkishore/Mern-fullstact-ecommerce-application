@@ -10,13 +10,19 @@ import {
 import { sortOptions } from "@/config";
 import { ArrowUpDown } from "lucide-react";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllFilteredProducts } from "../../../store/shop/products-slice/index.js";
+import ShoppingProductTile from "./product-tile.jsx";
+
 
 const ShoppingListing = () => {
   const dispatch = useDispatch();
-
+  const {isLoading,productList} = useSelector((state) => state.shopProducts);
+  console.log(productList)
   // fetch list of products from the server
-
+  useEffect(() => {
+    dispatch(fetchAllFilteredProducts())
+  },[]);
  
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6  p-4 md:p-6">
@@ -49,7 +55,14 @@ const ShoppingListing = () => {
             </DropdownMenu>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+          {
+            productList && productList.length > 0 ?
+            productList.map((productItem)=>
+            <ShoppingProductTile product={productItem} key={productItem._id}/>
+            ) : null
+          }
+        </div>
       </div>
     </div>
   );
