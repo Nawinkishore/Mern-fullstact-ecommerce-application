@@ -9,29 +9,41 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
 import { ArrowUpDown } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFilteredProducts } from "../../../store/shop/products-slice/index.js";
 import ShoppingProductTile from "./product-tile.jsx";
 
 
+
 const ShoppingListing = () => {
   const dispatch = useDispatch();
   const {isLoading,productList} = useSelector((state) => state.shopProducts);
+  const [filter,setFilter] =  useState(null);
+  const [sort,setSort] =  useState(null);
   console.log(productList)
   // fetch list of products from the server
   useEffect(() => {
     dispatch(fetchAllFilteredProducts())
   },[]);
- 
+ function handleSort(value){
+  // console.log(value)
+  setSort(value);
+ }
+ function handleFilter(getSectionId,getCurrentOption){
+  console.log(getSectionId,getCurrentOption)
+}
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6  p-4 md:p-6">
-      <ProductFilter />
+      <ProductFilter 
+      filters={filter}
+      handleFilter={handleFilter}
+      />
       <div className="bg-background w-full rounded-lg shadow-sm">
         <div className="p-4 border-b flex items-center justify-between">
           <h2 className="text-lg font-extrabold ">All Products</h2>
           <div className="flex items-center gap-3">
-            <span className="text-muted-foreground ">10 Products</span>
+            <span className="text-muted-foreground ">{productList?.length}</span>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -44,9 +56,9 @@ const ShoppingListing = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className={"w-[200px]"}>
-                <DropdownMenuRadioGroup>
+                <DropdownMenuRadioGroup value={sort} onValueChange={handleSort}>
                   {sortOptions.map((sortItem) => (
-                    <DropdownMenuRadioItem key={sortItem.id}>
+                    <DropdownMenuRadioItem key={sortItem.id} value={sortItem.id}>
                       {sortItem.label}
                     </DropdownMenuRadioItem>
                   ))}
